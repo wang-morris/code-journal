@@ -1,0 +1,66 @@
+* {
+  font-family: "Merriweather Sans", sans-serif;
+  background-color: rgb(240, 240, 240);
+  font-weight: 500;
+}
+
+.title-banner {
+  background-color: rgb(78, 11, 119);
+  padding: 2rem;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+h2 {
+  position: absolute;
+  top: 0;
+  background-color: rgb(78, 11, 119);
+  color: white;
+  font-weight: 300;
+}
+
+.form-title {
+  margin-bottom: 0.7rem;
+  font-size: 1.1rem;
+}
+
+img,
+input,
+textarea {
+  display: block;
+  width: 100%;
+  border-radius: 0.3rem;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  border: 1px solid rgb(199, 199, 199);
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+img {
+  border: none;
+}
+
+textarea {
+  resize: none;
+  overflow: hidden;
+  padding: 0.5rem 0.5rem 9rem;
+}
+
+input {
+  padding: 0.7rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  border-radius: 0.3rem;
+  padding: 0.5rem 1.2rem;
+  background-color: rgb(78, 11, 119);
+  color: white;
+  font-size: 1rem;
+  font-weight: 300;
+}
