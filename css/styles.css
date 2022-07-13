@@ -69,3 +69,37 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+/* user entries */
+
+.entries-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 3rem;
+}
+
+h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+p {
+  font-weight: 200;
+  line-height: 2;
+}
+
+.entry-image {
+  width: 95%;
+  height: 25rem;
+  object-fit: cover;
+}
