@@ -19,6 +19,20 @@ h2 {
   font-weight: 300;
 }
 
+a {
+  position: relative;
+  bottom: 2.4rem;
+  left: 10.5rem;
+  background-color: rgb(78, 11, 119);
+  color: white;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
 .form-title {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
@@ -102,4 +116,8 @@ p {
   width: 95%;
   height: 25rem;
   object-fit: cover;
+}
+
+.hidden-entries {
+  display: none;
 }

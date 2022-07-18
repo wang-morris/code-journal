@@ -3,6 +3,8 @@ var inputs = document.querySelector('#photoURL');
 var $image = document.querySelector('img');
 inputs.addEventListener('input', updatePhoto);
 
+// Updates photo when entry is submitted
+
 function updatePhoto(e) {
   $image.src = inputs.value;
   if (inputs.value === '') {
@@ -15,6 +17,8 @@ var $notes = document.querySelector('#notes');
 var $form = document.querySelector('form');
 $form.addEventListener('submit', submitForm);
 
+// pushes submission values into data model and appends DOM tree to page upon submission
+
 function submitForm(e) {
   e.preventDefault();
   var submission = {
@@ -26,20 +30,15 @@ function submitForm(e) {
   data.entries.unshift(submission);
   $image.src = 'images/placeholder-image-square.jpg';
   $ul.append(renderData(submission));
+  hiddenEntries.className = 'view';
+  changeToHidden.className = 'hidden-entries';
   $form.reset();
+
 }
 
 function renderData(submission) {
 /**
 <li>
-  <div class="row">
-    <div class="column-full entries-top-row">
-      <h1>Entries</h1>
-      <div>
-        <button type="submit">NEW</button>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="column-half">
       <img class="entry-image" src="https://cdn.mos.cms.futurecdn.net/9QTpESGBXa32D29J77VR3d-970-80.jpg.webp">
@@ -56,24 +55,20 @@ function renderData(submission) {
   </div>
 </li>
 */
+
   var $list = document.createElement('li');
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row');
+
   var $column = document.createElement('div');
-  $column.setAttribute('class', 'column-full entries-top-row');
+  $column.setAttribute('class', 'column-half');
 
-  var $heading = document.createElement('h1');
-  $heading.textContent = 'Entries';
+  var $otherColumn = document.createElement('div');
+  $otherColumn.setAttribute('class', 'entry-column column-half');
 
-  var $div = document.createElement('div');
-
-  var $button = document.createElement('button');
-  $button.setAttribute('type', 'submit');
-  $button.textContent = 'NEW';
-
-  var $image = document.createElement('img');
-  $image.setAttribute('class', 'entry-image');
-  $image.setAttribute('src', submission.photoURL);
+  var $newImage = document.createElement('img');
+  $newImage.setAttribute('class', 'entry-image');
+  $newImage.setAttribute('src', submission.photoURL);
 
   var $titleContainer = document.createElement('div');
   $titleContainer.setAttribute('class', 'form-title');
@@ -84,26 +79,11 @@ function renderData(submission) {
   var $paragraph = document.createElement('p');
   $paragraph.textContent = submission.notes;
 
-  var $otherRow = document.createElement('div');
-  $otherRow.setAttribute('class', 'row');
-
-  var $otherColumn = document.createElement('div');
-  $otherColumn.setAttribute('class', 'column-half');
-
-  var $thirdColumn = document.createElement('div');
-  $thirdColumn.setAttribute('class', 'entry-column column-half');
-
   $list.appendChild($row);
-  $row.appendChild($column);
-  $column.appendChild($heading);
-  $column.appendChild($div);
-  $div.appendChild($button);
-  $list.appendChild($otherRow);
-  $otherRow.append($otherColumn, $thirdColumn);
-  $otherColumn.appendChild($image);
-  $thirdColumn.append($titleContainer, $paragraph);
+  $row.append($column, $otherColumn);
+  $column.appendChild($newImage);
+  $otherColumn.append($titleContainer, $paragraph);
   $titleContainer.appendChild($entryTitle);
-
   return $list;
 }
 
@@ -115,3 +95,27 @@ window.addEventListener('DOMContentLoaded', e => {
     $ul.append($data);
   }
 });
+
+// switching different data views
+
+var anchor = document.querySelector('a');
+anchor.addEventListener('click', anchorClick);
+
+var hiddenEntries = document.querySelector('.hidden-entries');
+var changeToHidden = document.querySelector('.view');
+
+function anchorClick(e) {
+  e.preventDefault();
+  hiddenEntries.className = 'view';
+  changeToHidden.className = 'hidden-entries';
+}
+
+var newButton = document.querySelector('.new-button');
+newButton.addEventListener('click', newButtonClick);
+
+function newButtonClick(e) {
+  if (e.target === newButton) {
+    hiddenEntries.className = 'hidden-entries';
+    changeToHidden.className = 'view';
+  }
+}
