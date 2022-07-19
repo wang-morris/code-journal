@@ -121,3 +121,7 @@ p {
 .hidden-part {
   display: none;
 }
+
+.no-entries-sentence {
+  text-align: center;
+}

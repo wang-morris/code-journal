@@ -34,6 +34,10 @@ function submitForm(e) {
   $ul.prepend(renderData(submission));
   $form.reset();
 
+  var $noEntries = document.querySelector('.no-entries-sentence');
+  if (data.entries.length) {
+    $noEntries.style.display = 'none';
+  }
 }
 
 function renderData(submission) {
@@ -84,6 +88,7 @@ function renderData(submission) {
   $column.appendChild($newImage);
   $otherColumn.append($titleContainer, $paragraph);
   $titleContainer.appendChild($entryTitle);
+
   return $list;
 }
 
@@ -104,6 +109,10 @@ window.addEventListener('DOMContentLoaded', e => {
     defaultView.className = 'hidden-part';
     entryView.className = 'view';
   }
+  var $noEntries = document.querySelector('.no-entries-sentence');
+  if (data.entries.length) {
+    $noEntries.style.display = 'none';
+  }
 });
 
 // switches different data views
@@ -116,6 +125,7 @@ function anchorClick(e) {
   entryView.className = 'view';
   defaultView.className = 'hidden-part';
   data.view = 'entries';
+
 }
 
 var newButton = document.querySelector('.new-button');
