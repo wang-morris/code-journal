@@ -15,5 +15,5 @@ window.addEventListener('beforeunload', beforeUnload);
 
 function beforeUnload(e) {
   var dataJSON = JSON.stringify(data);
-  localStorage.setItem('javascipt-local-storage', dataJSON);
+  localStorage.setItem('javascript-local-storage', dataJSON);
 }

@@ -1,4 +1,3 @@
-
 var inputs = document.querySelector('#photoURL');
 var $image = document.querySelector('img');
 inputs.addEventListener('input', updatePhoto);
@@ -37,24 +36,24 @@ function submitForm(e) {
 }
 
 function renderData(submission) {
-/**
-<li>
-  <div class="row">
-    <div class="column-half">
-      <img class="entry-image" src="https://cdn.mos.cms.futurecdn.net/9QTpESGBXa32D29J77VR3d-970-80.jpg.webp">
-    </div>
-    <div class="entry-column column-half">
-      <div class="form-title">
-        <h3>First Example Entry</h3>
+  /**
+  <li>
+    <div class="row">
+      <div class="column-half">
+        <img class="entry-image" src="https://cdn.mos.cms.futurecdn.net/9QTpESGBXa32D29J77VR3d-970-80.jpg.webp">
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-        aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-      </p>
+      <div class="entry-column column-half">
+        <div class="form-title">
+          <h3>First Example Entry</h3>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+          aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+      </div>
     </div>
-  </div>
-</li>
-*/
+  </li>
+  */
 
   var $list = document.createElement('li');
   var $row = document.createElement('div');
@@ -89,14 +88,7 @@ function renderData(submission) {
 
 var $ul = document.querySelector('ul');
 
-window.addEventListener('DOMContentLoaded', e => {
-  for (var i = 0; i < data.entries.length; i++) {
-    var $data = renderData(data.entries[i]);
-    $ul.append($data);
-  }
-});
-
-// switching different data views
+// switches different data views
 
 var anchor = document.querySelector('a');
 anchor.addEventListener('click', anchorClick);
@@ -118,4 +110,9 @@ function newButtonClick(e) {
     hiddenEntries.className = 'hidden-entries';
     changeToHidden.className = 'view';
   }
+}
+
+for (var i = 0; i < data.entries.length; i++) {
+  var $data = renderData(data.entries[i]);
+  $ul.append($data);
 }
