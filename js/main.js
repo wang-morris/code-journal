@@ -20,6 +20,9 @@ $form.addEventListener('submit', submitForm);
 
 function submitForm(e) {
   e.preventDefault();
+  data.view = 'entries';
+  defaultView.className = 'hidden-part';
+  entryView.className = 'view';
   var submission = {
     title: $title.value,
     photoURL: inputs.value,
@@ -29,8 +32,6 @@ function submitForm(e) {
   data.entries.unshift(submission);
   $image.src = 'images/placeholder-image-square.jpg';
   $ul.append(renderData(submission));
-  hiddenEntries.className = 'view';
-  changeToHidden.className = 'hidden-entries';
   $form.reset();
 
 }
@@ -87,19 +88,34 @@ function renderData(submission) {
 }
 
 var $ul = document.querySelector('ul');
+var defaultView = document.querySelector('.default');
+var entryView = document.querySelector('.entries');
+
+window.addEventListener('DOMContentLoaded', e => {
+  for (var i = 0; i < data.entries.length; i++) {
+    var $data = renderData(data.entries[i]);
+    $ul.append($data);
+  }
+
+  if (data.view === 'entry-form') {
+    defaultView.className = 'view';
+    entryView.className = 'hidden-part';
+  } else if (data.view === 'entries') {
+    defaultView.className = 'hidden-part';
+    entryView.className = 'view';
+  }
+});
 
 // switches different data views
 
 var anchor = document.querySelector('a');
 anchor.addEventListener('click', anchorClick);
 
-var hiddenEntries = document.querySelector('.hidden-entries');
-var changeToHidden = document.querySelector('.view');
-
 function anchorClick(e) {
   e.preventDefault();
-  hiddenEntries.className = 'view';
-  changeToHidden.className = 'hidden-entries';
+  entryView.className = 'view';
+  defaultView.className = 'hidden-part';
+  data.view = 'entries';
 }
 
 var newButton = document.querySelector('.new-button');
@@ -107,12 +123,8 @@ newButton.addEventListener('click', newButtonClick);
 
 function newButtonClick(e) {
   if (e.target === newButton) {
-    hiddenEntries.className = 'hidden-entries';
-    changeToHidden.className = 'view';
+    entryView.className = 'hidden-part';
+    defaultView.className = 'view';
+    data.view = 'entry-form';
   }
-}
-
-for (var i = 0; i < data.entries.length; i++) {
-  var $data = renderData(data.entries[i]);
-  $ul.append($data);
 }
