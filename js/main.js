@@ -31,7 +31,7 @@ function submitForm(e) {
   };
   data.entries.unshift(submission);
   $image.src = 'images/placeholder-image-square.jpg';
-  $ul.append(renderData(submission));
+  $ul.prepend(renderData(submission));
   $form.reset();
 
 }
