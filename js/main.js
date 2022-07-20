@@ -50,7 +50,6 @@ function renderData(submission) {
       <div class="entry-column column-half">
         <div class="form-title">
           <h3>First Example Entry</h3>
-        </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
           aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -80,6 +79,18 @@ function renderData(submission) {
   var $entryTitle = document.createElement('h3');
   $entryTitle.textContent = submission.title;
 
+  var $editBody = document.createElement('div');
+  $editBody.setAttribute('class', 'edit-body');
+
+  var $editContainer = document.createElement('div');
+  $editContainer.setAttribute('class', 'edit-container');
+
+  var $editTip = document.createElement('div');
+  $editTip.setAttribute('class', 'edit-tip');
+
+  var $editStrip = document.createElement('div');
+  $editStrip.setAttribute('class', 'edit-strip');
+
   var $paragraph = document.createElement('p');
   $paragraph.textContent = submission.notes;
 
@@ -87,7 +98,8 @@ function renderData(submission) {
   $row.append($column, $otherColumn);
   $column.appendChild($newImage);
   $otherColumn.append($titleContainer, $paragraph);
-  $titleContainer.appendChild($entryTitle);
+  $titleContainer.append($entryTitle, $editContainer);
+  $editContainer.append($editBody, $editTip, $editStrip);
 
   return $list;
 }
