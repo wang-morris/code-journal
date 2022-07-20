@@ -135,6 +135,12 @@ p {
   display: flex;
   justify-content: end;
   align-items: start;
+  border-radius: 50%;
+  width: 2rem;
+}
+
+div.edit-container:hover {
+  cursor: pointer;
 }
 
 .edit-body {
@@ -149,7 +155,7 @@ p {
 
 .edit-tip {
   position: relative;
-  right: 1.3rem;
+  right: 1.35rem;
   top: 1.4rem;
   transform: rotate(-45deg);
   width: 0;

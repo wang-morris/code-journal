@@ -60,6 +60,7 @@ function renderData(submission) {
   */
 
   var $list = document.createElement('li');
+
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row');
 
@@ -100,6 +101,8 @@ function renderData(submission) {
   $otherColumn.append($titleContainer, $paragraph);
   $titleContainer.append($entryTitle, $editContainer);
   $editContainer.append($editBody, $editTip, $editStrip);
+
+  $list.setAttribute('data-entry-id', data.nextEntryId);
 
   return $list;
 }
@@ -150,3 +153,8 @@ function newButtonClick(e) {
     data.view = 'entry-form';
   }
 }
+
+// edit entries
+$ul.addEventListener('click', () => {
+
+});
