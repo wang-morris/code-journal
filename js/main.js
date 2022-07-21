@@ -80,7 +80,7 @@ function renderData(submission) {
   var $entryTitle = document.createElement('h3');
   $entryTitle.textContent = submission.title;
 
-  var $editBody = document.createElement('div');
+  var $editBody = document.createElement('button');
   $editBody.setAttribute('class', 'edit-body');
 
   var $editContainer = document.createElement('div');
@@ -152,9 +152,21 @@ function newButtonClick(e) {
     defaultView.className = 'view';
     data.view = 'entry-form';
   }
+  var $headingTitle = document.querySelector('h1');
+  $headingTitle.textContent = 'New Entry';
+
 }
 
 // edit entries
-$ul.addEventListener('click', () => {
+$ul.addEventListener('click', editClick);
 
-});
+function editClick(e) {
+  if (e.target.tagName === 'BUTTON') {
+    entryView.className = 'hidden-part';
+    defaultView.className = 'view';
+    data.view = 'entry-form';
+  }
+  var $headingTitle = document.querySelector('h1');
+  $headingTitle.textContent = 'Edit Entry';
+
+}
