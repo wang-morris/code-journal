@@ -102,7 +102,7 @@ function renderData(submission) {
   $titleContainer.append($entryTitle, $editContainer);
   $editContainer.append($editBody, $editTip, $editStrip);
 
-  $list.setAttribute('data-entry-id', data.nextEntryId);
+  $list.setAttribute('data-entry-id', submission.nextEntryId);
 
   return $list;
 }
@@ -165,8 +165,13 @@ function editClick(e) {
     entryView.className = 'hidden-part';
     defaultView.className = 'view';
     data.view = 'entry-form';
-  }
-  var $headingTitle = document.querySelector('h1');
-  $headingTitle.textContent = 'Edit Entry';
+    var $headingTitle = document.querySelector('h1');
+    $headingTitle.textContent = 'Edit Entry';
 
+    var $closestButton = e.target;
+    var getAttribute = $closestButton.closest('li');
+    var currentId = getAttribute.getAttribute('data-entry-id');
+    var reversedArray = data.entries.reverse();
+    data.editing = reversedArray[currentId - 1];
+  }
 }
