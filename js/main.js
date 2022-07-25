@@ -167,11 +167,28 @@ function editClick(e) {
     data.view = 'entry-form';
     var $headingTitle = document.querySelector('h1');
     $headingTitle.textContent = 'Edit Entry';
-
-    var $closestButton = e.target;
-    var getAttribute = $closestButton.closest('li');
-    var currentId = getAttribute.getAttribute('data-entry-id');
-    var reversedArray = data.entries.reverse();
-    data.editing = reversedArray[currentId - 1];
   }
+
+  var $closestButton = e.target;
+  var currentElement = $closestButton.closest('li');
+  var currentId = currentElement.getAttribute('data-entry-id');
+  var currentIdNumber = parseInt(currentId);
+
+  for (var i = 0; i < data.entries.length; i++) {
+    var entry = data.entries[i];
+    if (entry.nextEntryId === currentIdNumber) {
+      data.editing = entry;
+      break;
+    }
+  }
+
+  var $titleBox = document.querySelector('#title');
+  $titleBox.value = data.editing.title;
+
+  var $urlBox = document.querySelector('#photoURL');
+  $urlBox.value = data.editing.photoURL;
+
+  var $notesBox = document.querySelector('#notes');
+  $notesBox.textContent = data.editing.notes;
+
 }
