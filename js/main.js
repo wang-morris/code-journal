@@ -29,15 +29,37 @@ function submitForm(e) {
     notes: $notes.value,
     nextEntryId: data.nextEntryId++
   };
-  data.entries.unshift(submission);
-  $image.src = 'images/placeholder-image-square.jpg';
-  $ul.prepend(renderData(submission));
-  $form.reset();
+
+  if (!data.editing) {
+    data.entries.unshift(submission);
+    $image.src = 'images/placeholder-image-square.jpg';
+    $ul.prepend(renderData(submission));
+  } else {
+    data.editing.title = submission.title;
+    data.editing.photoURL = submission.photoURL;
+    data.editing.notes = submission.notes;
+    var $nodeList = document.querySelectorAll('li');
+    data.nextEntryId = $nodeList.length + 1;
+    var currentId = data.editing.nextEntryId;
+    for (var i = 0; i < $nodeList.length; i++) {
+      var currentNode = $nodeList[i];
+      var idNumber = currentNode.getAttribute('data-entry-id');
+      if (parseInt(idNumber) === currentId) {
+        var $old = currentNode;
+        var $new = renderData(data.editing);
+        $old.replaceWith($new);
+        break;
+      }
+    }
+    data.editing = null;
+  }
 
   var $noEntries = document.querySelector('.no-entries-sentence');
   if (data.entries.length) {
     $noEntries.style.display = 'none';
   }
+  $form.reset();
+  $notes.textContent = '';
 }
 
 function renderData(submission) {
@@ -140,7 +162,6 @@ function anchorClick(e) {
   entryView.className = 'view';
   defaultView.className = 'hidden-part';
   data.view = 'entries';
-
 }
 
 var newButton = document.querySelector('.new-button');
@@ -154,7 +175,9 @@ function newButtonClick(e) {
   }
   var $headingTitle = document.querySelector('h1');
   $headingTitle.textContent = 'New Entry';
-
+  $form.reset();
+  $notes.textContent = '';
+  $image.src = 'images/placeholder-image-square.jpg';
 }
 
 // edit entries
@@ -187,8 +210,8 @@ function editClick(e) {
 
   var $urlBox = document.querySelector('#photoURL');
   $urlBox.value = data.editing.photoURL;
+  $image.src = data.editing.photoURL;
 
   var $notesBox = document.querySelector('#notes');
   $notesBox.textContent = data.editing.notes;
-
 }
