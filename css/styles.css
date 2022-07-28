@@ -36,6 +36,9 @@ a:hover {
 .form-title {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 img,
@@ -67,7 +70,7 @@ input {
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
 }
 
 button {
@@ -124,4 +127,106 @@ p {
 
 .no-entries-sentence {
   text-align: center;
+}
+
+/* edit symbol */
+
+.edit-container {
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  border-radius: 50%;
+  width: 2rem;
+}
+
+div.edit-container:hover {
+  cursor: pointer;
+}
+
+.edit-body {
+  border-radius: 3px;
+  border-style: none;
+  background-color: rgb(78, 11, 119);
+  transform: rotate(-45deg) scale(0.8);
+  position: relative;
+  left: 1rem;
+}
+
+.edit-tip {
+  position: relative;
+  right: 1.4rem;
+  top: 1.1rem;
+  transform: rotate(-45deg);
+  width: 0;
+  height: 0;
+  border-top: 0.3rem solid transparent;
+  border-bottom: 0.3rem solid transparent;
+  border-right: 0.3rem solid rgb(78, 11, 119);
+}
+
+.edit-strip {
+  border: 0.05rem solid rgb(240, 240, 240);
+  background: rgb(240, 240, 240);
+  height: 2rem;
+  transform: rotate(-45deg);
+  position: relative;
+  bottom: 0.9rem;
+  right: 0.3rem;
+}
+
+/* delete entries */
+.delete {
+  color: red;
+  background-color: rgb(240, 240, 240);
+  text-decoration: underline;
+  position: relative;
+  bottom: 2.5rem;
+}
+
+.modal-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  left: 0;
+  top: 0;
+  background-color: rgb(0 0 0 / 65%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.modal-box {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.1rem 0.3rem 0.3rem rgb(0 0 0 / 0.3);
+}
+
+.button-container-modal {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-text {
+  font-weight: 400;
+  position: relative;
+  bottom: 0.7rem;
+}
+
+.modal-button-cancel {
+  background-color: rgb(184, 181, 181);
+  color: rgb(83, 81, 81);
+  font-weight: 400;
+}
+
+.modal-button-confirm {
+  background-color: rgb(219, 7, 7);
+  font-weight: 400;
+}
+
+.display-container {
+  visibility: visible;
 }
