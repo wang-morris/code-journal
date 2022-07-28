@@ -29,15 +29,37 @@ function submitForm(e) {
     notes: $notes.value,
     nextEntryId: data.nextEntryId++
   };
-  data.entries.unshift(submission);
-  $image.src = 'images/placeholder-image-square.jpg';
-  $ul.prepend(renderData(submission));
-  $form.reset();
+
+  if (!data.editing) {
+    data.entries.unshift(submission);
+    $image.src = 'images/placeholder-image-square.jpg';
+    $ul.prepend(renderData(submission));
+  } else {
+    data.editing.title = submission.title;
+    data.editing.photoURL = submission.photoURL;
+    data.editing.notes = submission.notes;
+    var $nodeList = document.querySelectorAll('li');
+    data.nextEntryId = $nodeList.length + 1;
+    var currentId = data.editing.nextEntryId;
+    for (var i = 0; i < $nodeList.length; i++) {
+      var currentNode = $nodeList[i];
+      var idNumber = currentNode.getAttribute('data-entry-id');
+      if (parseInt(idNumber) === currentId) {
+        var $old = currentNode;
+        var $new = renderData(data.editing);
+        $old.replaceWith($new);
+        break;
+      }
+    }
+    data.editing = null;
+  }
 
   var $noEntries = document.querySelector('.no-entries-sentence');
   if (data.entries.length) {
     $noEntries.style.display = 'none';
   }
+  $form.reset();
+  $notes.textContent = '';
 }
 
 function renderData(submission) {
@@ -50,7 +72,6 @@ function renderData(submission) {
       <div class="entry-column column-half">
         <div class="form-title">
           <h3>First Example Entry</h3>
-        </div>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
           aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
           aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
@@ -61,6 +82,7 @@ function renderData(submission) {
   */
 
   var $list = document.createElement('li');
+
   var $row = document.createElement('div');
   $row.setAttribute('class', 'row');
 
@@ -80,6 +102,18 @@ function renderData(submission) {
   var $entryTitle = document.createElement('h3');
   $entryTitle.textContent = submission.title;
 
+  var $editBody = document.createElement('button');
+  $editBody.setAttribute('class', 'edit-body');
+
+  var $editContainer = document.createElement('div');
+  $editContainer.setAttribute('class', 'edit-container');
+
+  var $editTip = document.createElement('div');
+  $editTip.setAttribute('class', 'edit-tip');
+
+  var $editStrip = document.createElement('div');
+  $editStrip.setAttribute('class', 'edit-strip');
+
   var $paragraph = document.createElement('p');
   $paragraph.textContent = submission.notes;
 
@@ -87,7 +121,10 @@ function renderData(submission) {
   $row.append($column, $otherColumn);
   $column.appendChild($newImage);
   $otherColumn.append($titleContainer, $paragraph);
-  $titleContainer.appendChild($entryTitle);
+  $titleContainer.append($entryTitle, $editContainer);
+  $editContainer.append($editBody, $editTip, $editStrip);
+
+  $list.setAttribute('data-entry-id', submission.nextEntryId);
 
   return $list;
 }
@@ -125,7 +162,6 @@ function anchorClick(e) {
   entryView.className = 'view';
   defaultView.className = 'hidden-part';
   data.view = 'entries';
-
 }
 
 var newButton = document.querySelector('.new-button');
@@ -137,4 +173,45 @@ function newButtonClick(e) {
     defaultView.className = 'view';
     data.view = 'entry-form';
   }
+  var $headingTitle = document.querySelector('h1');
+  $headingTitle.textContent = 'New Entry';
+  $form.reset();
+  $notes.textContent = '';
+  $image.src = 'images/placeholder-image-square.jpg';
+}
+
+// edit entries
+$ul.addEventListener('click', editClick);
+
+function editClick(e) {
+  if (e.target.tagName === 'BUTTON') {
+    entryView.className = 'hidden-part';
+    defaultView.className = 'view';
+    data.view = 'entry-form';
+    var $headingTitle = document.querySelector('h1');
+    $headingTitle.textContent = 'Edit Entry';
+  }
+
+  var $closestButton = e.target;
+  var currentElement = $closestButton.closest('li');
+  var currentId = currentElement.getAttribute('data-entry-id');
+  var currentIdNumber = parseInt(currentId);
+
+  for (var i = 0; i < data.entries.length; i++) {
+    var entry = data.entries[i];
+    if (entry.nextEntryId === currentIdNumber) {
+      data.editing = entry;
+      break;
+    }
+  }
+
+  var $titleBox = document.querySelector('#title');
+  $titleBox.value = data.editing.title;
+
+  var $urlBox = document.querySelector('#photoURL');
+  $urlBox.value = data.editing.photoURL;
+  $image.src = data.editing.photoURL;
+
+  var $notesBox = document.querySelector('#notes');
+  $notesBox.textContent = data.editing.notes;
 }

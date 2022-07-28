@@ -36,6 +36,9 @@ a:hover {
 .form-title {
   margin-bottom: 0.75rem;
   font-size: 1.1rem;
+  height: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 img,
@@ -124,4 +127,49 @@ p {
 
 .no-entries-sentence {
   text-align: center;
+}
+
+/* edit symbol */
+
+.edit-container {
+  display: flex;
+  justify-content: end;
+  align-items: start;
+  border-radius: 50%;
+  width: 2rem;
+}
+
+div.edit-container:hover {
+  cursor: pointer;
+}
+
+.edit-body {
+  border-radius: 3px;
+  border-style: none;
+  background-color: rgb(78, 11, 119);
+  transform: rotate(-45deg) scale(0.8);
+  position: relative;
+  left: 1rem;
+}
+
+.edit-tip {
+  position: relative;
+  right: 1.4rem;
+  top: 1.1rem;
+  transform: rotate(-45deg);
+  width: 0;
+  height: 0;
+  border-top: 0.3rem solid transparent;
+  border-bottom: 0.3rem solid transparent;
+  border-right: 0.3rem solid rgb(78, 11, 119);
+}
+
+.edit-strip {
+  border: 0.05rem solid rgb(240, 240, 240);
+  background: rgb(240, 240, 240);
+  height: 2rem;
+  transform: rotate(-45deg);
+  position: relative;
+  bottom: 0.9rem;
+  right: 0.3rem;
 }
