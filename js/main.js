@@ -178,9 +178,15 @@ function newButtonClick(e) {
   $form.reset();
   $notes.textContent = '';
   $image.src = 'images/placeholder-image-square.jpg';
+
+
+  var $deleteButton = document.querySelector('.delete');
+  $deleteButton.className = 'delete hidden-part';
+
 }
 
 // edit entries
+
 $ul.addEventListener('click', editClick);
 
 function editClick(e) {
@@ -214,4 +220,63 @@ function editClick(e) {
 
   var $notesBox = document.querySelector('#notes');
   $notesBox.textContent = data.editing.notes;
+
+  var $deleteButton = document.querySelector('.delete');
+  $deleteButton.className = 'delete view';
+}
+
+// delete entries
+
+var $modal = document.querySelector('.modal-container');
+var $deleteButton = document.querySelector('.delete');
+$deleteButton.addEventListener('click', openModal);
+
+function openModal(e) {
+  e.preventDefault();
+  entryView.className = 'hidden-part';
+  defaultView.className = 'view';
+  data.view = 'entry-form';
+  $modal.className = 'modal-container display-container';
+
+}
+
+var $cancelButton = document.querySelector('.modal-button-cancel');
+$cancelButton.addEventListener('click', cancelEvent);
+
+function cancelEvent(e) {
+  e.preventDefault();
+  entryView.className = 'hidden-part';
+  defaultView.className = 'view';
+  data.view = 'entry-form';
+  $modal.className = 'modal-container';
+}
+
+var $confirmButton = document.querySelector('.modal-button-confirm');
+$confirmButton.addEventListener('click', confirmEvent);
+
+function confirmEvent(e) {
+  entryView.className = 'hidden-part';
+  defaultView.className = 'view';
+  data.view = 'entry-form';
+  $modal.className = 'modal-container';
+
+  var $nodeList = document.querySelectorAll('li');
+  var currentId = data.editing.nextEntryId;
+
+  for (var j = 0; j < data.entries.length; j++) {
+    var currentEntry = data.entries[j].nextEntryId;
+    if (currentEntry === currentId) {
+      data.entries.splice(j, 1);
+      break;
+    }
+  }
+
+  for (var i = 0; i < $nodeList.length; i++) {
+    var currentNode = $nodeList[i];
+    var idNumber = currentNode.getAttribute('data-entry-id');
+    if (parseInt(idNumber) === currentId) {
+      var remove = currentNode;
+      remove.remove();
+    }
+  }
 }
