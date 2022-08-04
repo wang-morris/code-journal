@@ -179,16 +179,18 @@ function newButtonClick(e) {
   $notes.textContent = '';
   $image.src = 'images/placeholder-image-square.jpg';
 
+
   var $deleteButton = document.querySelector('.delete');
   $deleteButton.className = 'delete hidden-part';
+
 }
 
 // edit entries
+
 $ul.addEventListener('click', editClick);
 
 function editClick(e) {
-  // if (e.target.tagName === 'BUTTON')
-  if (e.target.className === 'edit-body') {
+  if (e.target.tagName === 'BUTTON') {
     entryView.className = 'hidden-part';
     defaultView.className = 'view';
     data.view = 'entry-form';
@@ -224,6 +226,7 @@ function editClick(e) {
 }
 
 // delete entries
+
 var $modal = document.querySelector('.modal-container');
 var $deleteButton = document.querySelector('.delete');
 $deleteButton.addEventListener('click', openModal);
